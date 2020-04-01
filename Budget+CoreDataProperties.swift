@@ -2,7 +2,7 @@
 //  Budget+CoreDataProperties.swift
 //  BudjetointiApp
 //
-//  Created by Henri Loukonen on 25.3.2020.
+//  Created by Henri Loukonen on 31.3.2020.
 //  Copyright © 2020 Henri Loukonen. All rights reserved.
 //
 //
@@ -18,23 +18,26 @@ extension Budget {
     }
 
     @NSManaged public var budgetAmount: Int16
+    @NSManaged public var duration: Int16
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
     @NSManaged public var startDate: Date?
-    @NSManaged public var duration: Int16
     @NSManaged public var expenses: NSSet?
 
+     public var wrappedName: String {
+         name ?? "Nimetön budjetti"
+     }
+     
+     public var wrappedStartDate: Date {
+         startDate ?? Date()
+     }
     
-    public var wrappedName: String {
-        name ?? "Nimetön budjetti"
-    }
-   
-    public var expenseArray: [Expense] {
-        let set = expenses as? Set<Expense> ?? []
-        return set.sorted {
-            $0.wrappedExpenseName < $1.wrappedExpenseName
-        }
-    }
+     public var expenseArray: [Expense] {
+         let set = expenses as? Set<Expense> ?? []
+         return set.sorted {
+             $0.amount < $1.amount
+         }
+     }
 }
 
 // MARK: Generated accessors for expenses

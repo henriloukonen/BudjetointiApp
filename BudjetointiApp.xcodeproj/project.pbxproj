@@ -36,8 +36,9 @@
 		BBAE971C2407C5AC00664945 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBAE971B2407C5AC00664945 /* Assets.xcassets */; };
 		BBAE971F2407C5AC00664945 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBAE971E2407C5AC00664945 /* Preview Assets.xcassets */; };
 		BBAE97242407C5AC00664945 /* WatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BBAE97002407C5A400664945 /* WatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		BBEC6A9D242FA847009BC844 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC6A9C242FA847009BC844 /* WelcomeView.swift */; };
+		BBEC6A9D242FA847009BC844 /* IpadWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC6A9C242FA847009BC844 /* IpadWelcomeView.swift */; };
 		BBEC6A9F24324EB9009BC844 /* DurationTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC6A9E24324EB9009BC844 /* DurationTimer.swift */; };
+		BBEC6AA82434E390009BC844 /* CustomStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC6AA72434E390009BC844 /* CustomStyles.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,8 +118,9 @@
 		BBAE971E2407C5AC00664945 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BBAE97202407C5AC00664945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BBAE97212407C5AC00664945 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
-		BBEC6A9C242FA847009BC844 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = SOURCE_ROOT; };
+		BBEC6A9C242FA847009BC844 /* IpadWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpadWelcomeView.swift; sourceTree = SOURCE_ROOT; };
 		BBEC6A9E24324EB9009BC844 /* DurationTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationTimer.swift; sourceTree = "<group>"; };
+		BBEC6AA72434E390009BC844 /* CustomStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStyles.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,18 +164,19 @@
 		BB4F897A24000C5C00D4267B /* BudjetointiApp */ = {
 			isa = PBXGroup;
 			children = (
-				BBEC6A9C242FA847009BC844 /* WelcomeView.swift */,
+				BB4F897D24000C5C00D4267B /* SceneDelegate.swift */,
+				BB4F897B24000C5C00D4267B /* AppDelegate.swift */,
+				BB77E01D242673570024E6D6 /* SettingsView.swift */,
+				BBEC6A9C242FA847009BC844 /* IpadWelcomeView.swift */,
 				BB77E009241D1E6C0024E6D6 /* Budget+CoreDataClass.swift */,
 				BB77E01724265FE40024E6D6 /* Budget+CoreDataProperties.swift */,
 				BB77E003241D18FE0024E6D6 /* Expense+CoreDataClass.swift */,
 				BB77E004241D18FE0024E6D6 /* Expense+CoreDataProperties.swift */,
-				BBF511CD242D11040051A6C0 /* Budgets */,
-				BB4F897B24000C5C00D4267B /* AppDelegate.swift */,
-				BB4F897D24000C5C00D4267B /* SceneDelegate.swift */,
+				BBF511CD242D11040051A6C0 /* Budget */,
+				BBEC6AA0243399D5009BC844 /* Expense */,
 				BB4F898224000C5C00D4267B /* ContentView.swift */,
-				BB4F89942400111600D4267B /* AddExpenseView.swift */,
-				BB77E01B2426657C0024E6D6 /* EditExpenseView.swift */,
-				BB77E01D242673570024E6D6 /* SettingsView.swift */,
+				BBEC6A9E24324EB9009BC844 /* DurationTimer.swift */,
+				BBEC6AA72434E390009BC844 /* CustomStyles.swift */,
 				BB4F898424000C6400D4267B /* Assets.xcassets */,
 				BB4F898924000C6400D4267B /* LaunchScreen.storyboard */,
 				BB4F898C24000C6400D4267B /* Info.plist */,
@@ -225,16 +228,24 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		BBF511CD242D11040051A6C0 /* Budgets */ = {
+		BBEC6AA0243399D5009BC844 /* Expense */ = {
+			isa = PBXGroup;
+			children = (
+				BB4F89942400111600D4267B /* AddExpenseView.swift */,
+				BB77E01B2426657C0024E6D6 /* EditExpenseView.swift */,
+			);
+			path = Expense;
+			sourceTree = "<group>";
+		};
+		BBF511CD242D11040051A6C0 /* Budget */ = {
 			isa = PBXGroup;
 			children = (
 				BB77E00D241D30F40024E6D6 /* BudgetExpensesView.swift */,
 				BB77E00F2423DA7F0024E6D6 /* ShowBudgetsView.swift */,
 				BB77E019242665710024E6D6 /* EditBudgetView.swift */,
-				BBEC6A9E24324EB9009BC844 /* DurationTimer.swift */,
 				BB77E013242655170024E6D6 /* AddBudgetView.swift */,
 			);
-			path = Budgets;
+			path = Budget;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,7 +386,7 @@
 				BB77E007241D18FE0024E6D6 /* Expense+CoreDataClass.swift in Sources */,
 				BB77E00B241D1E6C0024E6D6 /* Budget+CoreDataClass.swift in Sources */,
 				BB4F897C24000C5C00D4267B /* AppDelegate.swift in Sources */,
-				BBEC6A9D242FA847009BC844 /* WelcomeView.swift in Sources */,
+				BBEC6A9D242FA847009BC844 /* IpadWelcomeView.swift in Sources */,
 				BB77E0102423DA7F0024E6D6 /* ShowBudgetsView.swift in Sources */,
 				BB4F897E24000C5C00D4267B /* SceneDelegate.swift in Sources */,
 				BB77E008241D18FE0024E6D6 /* Expense+CoreDataProperties.swift in Sources */,
@@ -385,6 +396,7 @@
 				BB77E00E241D30F40024E6D6 /* BudgetExpensesView.swift in Sources */,
 				BB77E01C2426657C0024E6D6 /* EditExpenseView.swift in Sources */,
 				BBEC6A9F24324EB9009BC844 /* DurationTimer.swift in Sources */,
+				BBEC6AA82434E390009BC844 /* CustomStyles.swift in Sources */,
 				BB77E014242655170024E6D6 /* AddBudgetView.swift in Sources */,
 				BB4F898124000C5C00D4267B /* BudjetointiApp.xcdatamodeld in Sources */,
 			);

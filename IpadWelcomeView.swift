@@ -1,5 +1,5 @@
 //
-//  WelcomeView.swift
+//  IpadWelcomeView.swift
 //  BudjetointiApp
 //
 //  Created by Henri Loukonen on 28.3.2020.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct WelcomeView: View {
+struct IpadWelcomeView: View {
     var body: some View {
         VStack {
             Text("Pyyhkäise vasemmasta reunasta nähdäksesi budjetit")
@@ -19,6 +19,6 @@ struct WelcomeView: View {
 
 struct WelcomeView_Previews: PreviewProvider {
     static var previews: some View {
-        WelcomeView()
+        IpadWelcomeView()
     }
 }

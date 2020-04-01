@@ -2,7 +2,7 @@
 //  Expense+CoreDataProperties.swift
 //  BudjetointiApp
 //
-//  Created by Henri Loukonen on 14.3.2020.
+//  Created by Henri Loukonen on 31.3.2020.
 //  Copyright © 2020 Henri Loukonen. All rights reserved.
 //
 //
@@ -20,15 +20,20 @@ extension Expense {
     @NSManaged public var amount: Int16
     @NSManaged public var date: Date?
     @NSManaged public var id: UUID?
-    @NSManaged public var name: String?
+    @NSManaged public var note: String?
+    @NSManaged public var time: Date?
     @NSManaged public var selectedBudget: Budget?
-
-    public var wrappedExpenseName: String {
-        name ?? "Nimetön kulu"
+    
+    public var wrappedExpenseNote: String {
+        note ?? ""
     }
     
     public var wrappedDate: Date {
         date ?? Date()
     }
     
+    public var wrappedTime: Date {
+        time ?? Date()
+    }
+
 }

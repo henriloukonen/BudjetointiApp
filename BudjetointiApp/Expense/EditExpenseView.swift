@@ -8,80 +8,61 @@
 
 import SwiftUI
 
-class EditViewModel: ObservableObject {
-    @Published var newNote: String
-    @Published var newAmount: String
-    @Published var newTime: Date
-    @Published var newDate: Date
-    @Published var expense: Expense
-    
-    init(expense: Expense) {
-        self.expense = expense
-        self.newNote = expense.wrappedExpenseNote //_newName - this means you're initialising the wrapper and not the wrapped value.
-        self.newAmount = String(expense.amount)
-        self.newTime = expense.wrappedTime
-        self.newDate = expense.wrappedDate
-    }
-}
 
 struct EditExpenseView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var expense: Expense
     
-    @ObservedObject var editModel: EditViewModel
+    @State private var newNote: String
+    @State private var newAmount: String
+    @State private var newDate: Date
+    
+    init(expense: Expense) {
+        self.expense = expense
 
+        self._newNote = State(initialValue: expense.wrappedExpenseNote) //_newName - this means you're initialising the wrapper and not the wrapped value.
+        self._newAmount = State(initialValue: String(expense.amount))
+        self._newDate = State(initialValue: expense.wrappedDate)
+        
+      
+        
+    }
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section {
-                    HStack {
-                        
-                        TextField(editModel.newNote == "" ? "Muistiinpano" : editModel.newNote, text: $editModel.newNote)
-                            
-                    }
-                    HStack {
-                        TextField("Summa", text: $editModel.newAmount)
-                            .keyboardType(.decimalPad)
-                            
-                    }
+        Form {
+            Section {
+                HStack {
+                    TextField(newNote == "" ? "Muistiinpano" : newNote, text: $newNote)
+                    
                 }
-                Section {
-                    DatePicker(selection: $editModel.newDate, in: ...Date()) {
-                            Text("Päivä")
-                        }
-                            .pickerStyle(WheelPickerStyle())
-                           
+                HStack {
+                    TextField(String(newAmount), text: $newAmount)
+                        .keyboardType(.decimalPad)
                 }
             }
-            
-      
-                
-                .navigationBarItems(leading: Button(action: {
-                    self.presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Text("Sulje")
-                }),
-                    trailing: Button(action: {
-                        self.editModel.expense.note = self.editModel.newNote
-                        self.editModel.expense.amount = Int16(self.editModel.newAmount)!
-                        self.editModel.expense.date = self.editModel.newDate
-                        self.editModel.expense.time = self.editModel.newTime
-                    
-                        
-                        if self.moc.hasChanges {
-                            try? self.moc.save()
-                        }
-                }) {
-                        Text("Tallenna")
+            Section {
+                DatePicker(selection: $newDate, in: ...Date()) {
+                    Text("Päivä ja aika")
                 }
-                    .disabled(editModel.newAmount.isEmpty)
-            )
-                
-                .navigationBarTitle(Text(editModel.newNote), displayMode: .inline)
-        
-        .navigationViewStyle(StackNavigationViewStyle())
+                .pickerStyle(WheelPickerStyle())
+            }
         }
+            
+        .navigationBarItems(trailing: Button("Tallenna") {
+            self.expense.note = self.newNote
+            self.expense.amount = Int16(self.newAmount)!
+            self.expense.date = self.newDate
+            
+            
+            if self.moc.hasChanges {
+                try? self.moc.save()
+            }
+        } .disabled(newAmount.isEmpty))
+            
+            .navigationBarTitle(Text(expense.wrappedExpenseNote), displayMode: .inline)
+            .navigationViewStyle(StackNavigationViewStyle())
+        
     }
 }
 //
