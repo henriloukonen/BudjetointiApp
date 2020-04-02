@@ -10,6 +10,8 @@ import SwiftUI
 
 struct BudgetExpensesView: View {
     @Environment(\.managedObjectContext) var moc
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
     @State private var showAddExpense = false
     @State private var showingEditExpense = false
     
@@ -28,6 +30,11 @@ struct BudgetExpensesView: View {
         
         VStack {
             List {
+                if horizontalSizeClass == .regular {
+                    VStack {
+                        Text("lol")
+                    }
+                }
                 if expenses.expenseArray.isEmpty {
                     Text("Tässä budjetissa ei ole menoja")
                         .foregroundColor(.gray)
@@ -62,24 +69,24 @@ struct BudgetExpensesView: View {
                     }
                 }
             } .listStyle(GroupedListStyle())
-                .animation(.easeInOut)
+                
             
             VStack {
                 Button("Uusi meno") {
                     self.showAddExpense.toggle()
-                    } .buttonStyle(CustomButton())
+                }
+                    .frame(minWidth: 0, maxWidth: 130, minHeight: 0, maxHeight: 50)
+                    .background(Color.green)
+                    .cornerRadius(11)
+                    .foregroundColor(.white)
+                    .font(Font.body.bold())
             }
-            
         }
-        
         .sheet(isPresented: $showAddExpense) {
-            AddExpenseView(budget: self.expenses).environment(\.managedObjectContext, self.moc)
+            AddExpenseView().environment(\.managedObjectContext, self.moc)
         }
             
         .navigationBarTitle(Text(expenses.wrappedName), displayMode: .inline)
-        
-        
-        
     }
 }
 

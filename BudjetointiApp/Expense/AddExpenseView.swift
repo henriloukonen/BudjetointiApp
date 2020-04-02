@@ -11,17 +11,29 @@ import SwiftUI
 struct AddExpenseView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
+    @FetchRequest(entity: Budget.entity(), sortDescriptors: [])
     
+    var budgets: FetchedResults<Budget>
+    @State private var selectedBudget = ""
     @State private var expenseNote = ""
     @State private var amount = ""
     @State private var date = Date()
     
-    @ObservedObject var budget: Budget
-    
-    
+
     var body: some View {
         NavigationView {
             Form {
+                Section {
+                    Picker(selection: $selectedBudget, label: Text("Valitse Budjetti")) {
+                        ForEach(budgets, id: \.self) { budget in
+                            
+                            Text(budget.wrappedName).tag(budget.wrappedName)
+                            
+                            
+                             
+                        }
+                    }
+                }
                 Section {
                     TextField("Muistiinpano", text: $expenseNote)
                     TextField("Summa", text: $amount)
@@ -34,14 +46,14 @@ struct AddExpenseView: View {
        
             }
                 
-            .navigationBarTitle(Text(budget.wrappedName), displayMode: .inline)
+            .navigationBarTitle(Text("Uusi meno"), displayMode: .inline)
             .navigationBarItems(trailing: Button("Tallenna") {
                 
                 let newExpense = Expense(context: self.moc)
                 newExpense.note = self.expenseNote
                 newExpense.amount = Int16(self.amount) ?? 0
                 newExpense.date = self.date
-                newExpense.selectedBudget = self.budget
+//                newExpense.selectedBudget = self.budget
                 newExpense.id = UUID()
                 
                 if self.moc.hasChanges {

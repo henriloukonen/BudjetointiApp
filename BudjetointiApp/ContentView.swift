@@ -10,127 +10,137 @@ import SwiftUI
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
-    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    @Environment(\.verticalSizeClass) var verticalSizeClass
     @FetchRequest(entity: Budget.entity(), sortDescriptors: [
         NSSortDescriptor(keyPath: \Budget.name, ascending: true),
     ])
     
     var budgets: FetchedResults<Budget>
-    
-    @State private var showingWelcomeViewAddBudget = false
+   
+    @State private var showingMainPageAddExpense = false
     @State private var showingBudgets = false
     @State private var showingSettings = false
-    @State private var showingContextMenuAddExpense = false
     @State private var showDetail = false
     
     init() {
-
-       UITableView.appearance().separatorStyle = .none //remove separators
-
+        UITableView.appearance().separatorStyle = .none //remove separators
     }
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(budgets, id: \.self) { budget in
-                    NavigationLink(destination: BudgetExpensesView(expenses: budget)) {
-                        HStack {
-                            VStack(alignment: .leading) {
-                                VStack(alignment: .leading) {
-                                    DurationTimer(duration: budget.duration, startDate: budget.wrappedStartDate)
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
-                                        
-                                    Text("jäljellä")
-                                        .font(.footnote)
-                                        .foregroundColor(.gray)
-                                }
-                                .padding()
-                            }
-                            
-                            Text(budget.wrappedName)
-                                .font(.largeTitle)
-                            Spacer()
-                        }
-                        .contextMenu {
-                            VStack {
-                                Button("Lisää uusi meno") {
-                                    self.showingContextMenuAddExpense = true
-                                } .sheet(isPresented: self.$showingContextMenuAddExpense) {
-                                    AddExpenseView(budget: budget).environment(\.managedObjectContext, self.moc)
-                                }
-                            }
-                        }
-                        
-                        Text("\(self.remaining(in: budget)) €")
-                            .bold()
-                        
-                    }.frame(height: 50)
-                        .padding()
-                    
-                } 
-                .environment(\.defaultMinListRowHeight, 50)
-                .listRowBackground(
-                    Rectangle()
-                        .foregroundColor(budgetRowColor())
-                        .cornerRadius(15)
-                        .padding(EdgeInsets(top: 6, leading: 17, bottom: 6, trailing: 17))
-                        .clipShape(Capsule())
-                        .opacity(0.5)
-                )
-                
+            ZStack {
                 VStack {
-                              Button(action: {
-                                  withAnimation(.spring()) {
-                                      self.showDetail.toggle()
-                                  }
-                              }) {
-                                  VStack {
-                                      Image(systemName: "chevron.right.circle").font(.system(size: 50))
-                                          .rotationEffect(.degrees(showDetail ? -90 : 0))
-                                        
-                                      
-                                      if self.showDetail {
-                                        Text("Detail").transition(
-                                            AnyTransition.move(edge: .bottom).combined(with: .opacity)
-                                        )
-                                      }
-                                      Spacer()
-                                  }
-                              }
-                          }
+                    List {
+                        ForEach(budgets, id: \.self) { budget in
+                            NavigationLink(destination: BudgetExpensesView(expenses: budget)) {
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        VStack(alignment: .leading) {
+                                            DurationTimer(duration: budget.duration, startDate: budget.wrappedStartDate)
+                                                .font(.footnote)
+                                            Text("jäljellä")
+                                                .font(.footnote)
+                                        }
+                                        .padding()
+                                    }
+                                    
+                                    Text(budget.wrappedName)
+                                        .font(.largeTitle)
+                                    Spacer()
+                                }
+                                .sheet(isPresented: self.$showingMainPageAddExpense) {
+                                    AddExpenseView().environment(\.managedObjectContext, self.moc)
+                                }
+
+                                Text("\(self.remainingBalance(in: budget)) €")
+                                    .bold()
+                                
+                            }.frame(height: 50)
+                                .padding()
+                            
+                        }
+                        .environment(\.defaultMinListRowHeight, 50)
+                        .listRowBackground(
+                            Rectangle()
+                                .fill(
+                                    LinearGradient(gradient: Gradient(colors: [.white, .green]), startPoint: .leading, endPoint: .trailing)
+                                )
+                                .cornerRadius(15)
+                                .padding(EdgeInsets(top: 6, leading: 17, bottom: 6, trailing: 17))
+                                .clipShape(Capsule())
+                                .opacity(0.7)
+                        )
+                    }
+                    Spacer()
+                    
+                    VStack {
+                        if self.showDetail {
+                            VStack(alignment: .center) {
+                                Button(action: {
+                                    self.showingBudgets.toggle()
+                                }) {
+                                    Text("Kaikki Budjetit")
+                                    Image(systemName: "line.horizontal.3")
+                                        .padding(.horizontal, 2)
+                                }
+                                .sheet(isPresented: self.$showingBudgets) {
+                                    ShowBudgetsView().environment(\.managedObjectContext, self.moc)
+                                }
+                                .frame(width: 150, height: 30)
+                                .padding(.all)
+                                .background(Color.blue)
+                                .cornerRadius(20)
+                                .foregroundColor(.white)
+                                .font(Font.body.bold())
+                                
+                                Button(action: {
+                                    self.showingMainPageAddExpense.toggle()
+                                }) {
+                                    Text("Uusi meno")
+                                    Image(systemName: "pencil")
+                                        .padding(.horizontal, 2)
+                                }
+                                .frame(width: 150, height: 30)
+                                .padding(.all)
+                                .background(Color.green)
+                                .cornerRadius(20)
+                                .foregroundColor(.white)
+                                .font(Font.body.bold())
+                                .padding()
+                            }   
+                                .transition(
+                                    AnyTransition.move(edge: .bottom).combined(with: .opacity)
+                                )
+                        }
+                    }
+                    Button(action: {
+                        withAnimation(.spring()) {
+                            self.showDetail.toggle()
+                        }
+                    }) {
+                        Image(systemName: "chevron.right.circle").font(.system(size: 50))
+                            .rotationEffect(.degrees(showDetail ? -90 : 0))
+                            .scaleEffect(showDetail ? 1.3 : 1)
+                            .foregroundColor(showDetail ? .orange : .blue)
+                    }
+                }
             }
           
             .navigationBarItems(leading:
-                HStack {
-                    Button(action: {
-                        self.showingSettings.toggle()
-                    }) {
-                        Image(systemName: "gear")
-                            .font(.largeTitle)
-                            
-                            .sheet(isPresented: $showingSettings) {
-                                SettingsView()
-                        }
-                    }.foregroundColor(.gray)
-                }, trailing:
-                HStack {
-                    Button(action: {
-                        self.showingBudgets.toggle()
-                    }) {
-                        Image(systemName: "tray.2.fill")
-                            .font(.largeTitle)
-                            
-                            .sheet(isPresented: $showingBudgets) {
-                                ShowBudgetsView().environment(\.managedObjectContext, self.moc)
-                        }
-                    }.foregroundColor(.blue)
+                Button(action: {
+                    self.showingSettings.toggle()
+                }) {
+                    Image(systemName: "gear")
+                        .frame(width: 10, height: 10)
+            }
+                .sheet(isPresented: $showingSettings) {
+                    SettingsView()
             })
                 .navigationBarTitle("Yleisnäkymä")
                 .navigationViewStyle(DoubleColumnNavigationViewStyle())
                 .padding(0)
             
-            if horizontalSizeClass == .regular {
+            if verticalSizeClass == .regular {
                 IpadWelcomeView()
             }
         }
@@ -140,7 +150,7 @@ struct ContentView: View {
         return .blue
     }
     
-    func remaining(in budget: Budget) -> Int16 {
+    func remainingBalance(in budget: Budget) -> Int16 {
         var remaining = budget.budgetAmount
         
         for expense in budget.expenseArray {

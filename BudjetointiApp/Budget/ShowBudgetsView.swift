@@ -72,18 +72,19 @@ struct ShowBudgetsView: View {
                 VStack {
                     Button("Uusi budjetti") {
                         self.showingAddBudget.toggle()
-                    } .padding(.all)
-                        .background(Color.blue)
-                        .cornerRadius(11)
-                        .foregroundColor(.white)
-                        .font(Font.body.bold())
-                }
+                    } .frame(minWidth: 0, maxWidth: 130, minHeight: 0, maxHeight: 50)
+                    .background(Color.blue)
+                    .cornerRadius(11)
+                    .foregroundColor(.white)
+                    .font(Font.body.bold())
+                   
+                    } .padding()
             }
             .sheet(isPresented: $showingAddBudget) {
                 AddBudgetView().environment(\.managedObjectContext, self.moc)
             }
             .navigationBarTitle("Budjetit")
-            .navigationBarItems(trailing: Button("Sulje") {
+            .navigationBarItems(leading: Button("Sulje") {
                 self.presentationMode.wrappedValue.dismiss()
             })
         }

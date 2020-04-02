@@ -54,7 +54,7 @@ struct AddBudgetView: View {
                     } .pickerStyle(SegmentedPickerStyle())
                 }
             }
-            .navigationBarItems(trailing: Button(action: {
+            .navigationBarItems(trailing: Button("Tallenna") {
                 
                 let newBudget = Budget(context: self.moc)
                 newBudget.name = self.budgetName
@@ -68,10 +68,7 @@ struct AddBudgetView: View {
                 }
                 
                 self.presentationMode.wrappedValue.dismiss()
-                
-            }, label: {
-                Text("Tallenna")
-            })
+            }
                 .disabled(budgetName.isEmpty || budgetAmount.isEmpty)
             )
             .navigationBarTitle("Uusi")

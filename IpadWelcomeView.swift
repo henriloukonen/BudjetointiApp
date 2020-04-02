@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct IpadWelcomeView: View {
+    
     var body: some View {
         VStack {
             Text("Pyyhkäise vasemmasta reunasta nähdäksesi budjetit")

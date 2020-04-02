@@ -12,14 +12,15 @@ struct CustomButton: ButtonStyle {
  
     func makeBody(configuration: Self.Configuration) -> some View {
         configuration.label
-            .padding(.all)
+            
+            .frame(minWidth: 0, maxWidth: 100, minHeight: 0, maxHeight: 30)
             .background(Color.green)
             .cornerRadius(11)
             .foregroundColor(.white)
             .font(Font.body.bold())
             .scaleEffect(configuration.isPressed ? 0.7 : 1.0)
             
-//            .frame(minWidth: 0, maxWidth: .infinity)
+//
 //            .padding()
 //            .foregroundColor(.white)
 //            .background(LinearGradient(gradient: Gradient(colors: [Color("DarkGreen"), Color("LightGreen")]), startPoint: .leading, endPoint: .trailing))
