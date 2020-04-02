@@ -43,7 +43,6 @@ struct ContentView: View {
                                         }
                                         .padding()
                                     }
-                                    
                                     Text(budget.wrappedName)
                                         .font(.largeTitle)
                                     Spacer()
@@ -54,10 +53,8 @@ struct ContentView: View {
 
                                 Text("\(self.remainingBalance(in: budget)) €")
                                     .bold()
-                                
                             }.frame(height: 50)
                                 .padding()
-                            
                         }
                         .environment(\.defaultMinListRowHeight, 50)
                         .listRowBackground(
@@ -71,6 +68,7 @@ struct ContentView: View {
                                 .opacity(0.7)
                         )
                     }
+                    
                     Spacer()
                     
                     VStack {
@@ -123,6 +121,11 @@ struct ContentView: View {
                             .scaleEffect(showDetail ? 1.3 : 1)
                             .foregroundColor(showDetail ? .orange : .blue)
                     }
+                }
+            }
+            .onTapGesture(count: 2) {
+                withAnimation {
+                    self.showDetail = false
                 }
             }
           
