@@ -12,7 +12,7 @@ struct IpadWelcomeView: View {
     
     var body: some View {
         VStack {
-            Text("Pyyhkäise vasemmasta reunasta nähdäksesi budjetit")
+            Text("Valitse budjetti vasemmasta reunasta")
                 .foregroundColor(.secondary)
         }
     }

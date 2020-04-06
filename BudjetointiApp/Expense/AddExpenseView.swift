@@ -7,62 +7,71 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AddExpenseView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
-    @FetchRequest(entity: Budget.entity(), sortDescriptors: [])
-    
-    var budgets: FetchedResults<Budget>
-    @State private var selectedBudget = ""
-    @State private var expenseNote = ""
-    @State private var amount = ""
-    @State private var date = Date()
-    
 
+    @ObservedObject var budget: Budget
+
+    @State private var expenseNote = ""
+    @State private var amount = "0"
+    @State private var date = Date()
+    @State private var isExpense = true
+    
     var body: some View {
         NavigationView {
             Form {
                 Section {
-                    Picker(selection: $selectedBudget, label: Text("Valitse Budjetti")) {
-                        ForEach(budgets, id: \.self) { budget in
-                            
-                            Text(budget.wrappedName).tag(budget.wrappedName)
-                            
-                            
-                             
-                        }
-                    }
-                }
-                Section {
                     TextField("Muistiinpano", text: $expenseNote)
                     TextField("Summa", text: $amount)
                         .keyboardType(.decimalPad)
+                        .onReceive(Just(amount)) { newValue in
+                            let filtered = newValue.filter { "0123456789".contains($0) }
+                            if filtered != newValue {
+                                self.amount = filtered
+                            }
+                        }
                 }
                 
                 DatePicker(selection: $date, in: ...Date()) {
                     Text("Päivä ja aika")
                 } .pickerStyle(WheelPickerStyle())
-       
-            }
                 
-            .navigationBarTitle(Text("Uusi meno"), displayMode: .inline)
-            .navigationBarItems(trailing: Button("Tallenna") {
-                
-                let newExpense = Expense(context: self.moc)
-                newExpense.note = self.expenseNote
-                newExpense.amount = Int16(self.amount) ?? 0
-                newExpense.date = self.date
-//                newExpense.selectedBudget = self.budget
-                newExpense.id = UUID()
-                
-                if self.moc.hasChanges {
-                    try? self.moc.save()
+                Section  {
+                    HStack {
+                        Toggle(isOn: $isExpense) {
+                            Text("Meno")
+                        }
+                    }
                 }
-                
-                self.presentationMode.wrappedValue.dismiss()
+                    
+                .navigationBarTitle(isExpense ? Text("Uusi meno: \(budget.wrappedName)") : Text("Uusi tulo: \(budget.wrappedName)"), displayMode: .inline)
+                .navigationBarItems(leading: Button(action: {
+                    self.presentationMode.wrappedValue.dismiss()
+                }) {
+                    Image(systemName: "x.circle")
+                    
+                    }, trailing: Button("Tallenna") {
+                        let newExpense = Expense(context: self.moc)
+                        
+                        newExpense.date = self.date
+                        newExpense.selectedBudget = self.budget
+                        newExpense.note = self.expenseNote
+                        newExpense.amount = Int32(self.amount) ?? 0
+                        newExpense.id = UUID()
+                        newExpense.isExpense = self.isExpense
+               
+                        if self.moc.hasChanges {
+                            try? self.moc.save()
+                        }
+                        
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
+                    .disabled(amount.isEmpty))
             }
-            .disabled(amount.isEmpty))
+            
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

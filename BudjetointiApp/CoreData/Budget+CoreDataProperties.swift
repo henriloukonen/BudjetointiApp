@@ -17,7 +17,7 @@ extension Budget {
         return NSFetchRequest<Budget>(entityName: "Budget")
     }
 
-    @NSManaged public var budgetAmount: Int16
+    @NSManaged public var budgetAmount: Int32
     @NSManaged public var duration: Int16
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
@@ -35,7 +35,7 @@ extension Budget {
      public var expenseArray: [Expense] {
          let set = expenses as? Set<Expense> ?? []
          return set.sorted {
-             $0.amount < $1.amount
+             $0.wrappedDate < $1.wrappedDate
          }
      }
 }

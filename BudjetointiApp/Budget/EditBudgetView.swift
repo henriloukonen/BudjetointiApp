@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct EditBudgetView: View {
     @Environment(\.managedObjectContext) var moc
@@ -14,8 +15,8 @@ struct EditBudgetView: View {
     
     @State private var newName: String
     @State private var newAmount: String
-    @State private var disableEditing = true
     @State private var creationDate: Date
+    @State private var showConfirmation = false
     
     @ObservedObject var selectedBudget: Budget
     
@@ -52,6 +53,7 @@ struct EditBudgetView: View {
     }
     
     var body: some View {
+        ZStack {
             List {
                 Section {
                     HStack {
@@ -59,54 +61,61 @@ struct EditBudgetView: View {
                             .bold()
                         
                         TextField(newName, text: $newName)
-                            .disabled(disableEditing)
                     }
                     HStack {
-                        Text("Budjetti")
+                        Text("Summa")
                             .bold()
                         TextField(String(newAmount), text: $newAmount)
-                            .disabled(disableEditing)
                             .keyboardType(.decimalPad)
+                            .onReceive(Just(newAmount)) { newValue in
+                                let filtered = newValue.filter { "0123456789".contains($0) }
+                                if filtered != newValue {
+                                    self.newAmount = filtered
+                                }
+                        }
                     }
+                    HStack {
+                        Text("Jäljellä")
+                            .bold()
+                        Text("\(Calculate().remainingBalance(in: selectedBudget))")
+                        
+                    }.foregroundColor(.gray)
+                        .disabled(true)
                     HStack {
                         Text("Kesto")
                             .bold()
-                            .foregroundColor(.gray)
                         Text(durationText)
-                            .foregroundColor(.gray)
-                    }
+                    }.foregroundColor(.gray)
+                    .disabled(true)
                     HStack {
                         Text("Luontipäivä")
                             .bold()
-                            .foregroundColor(.gray)
                         Text("\(creationDate, formatter: dateFormatter)")
-                            .foregroundColor(.gray)
-                    }
+                    }.foregroundColor(.gray)
+                    .disabled(true)
                 }
-                Section {
-                    VStack(alignment: .center, spacing: 10) {
-                        Button(disableEditing ? "Muokkaa" : "Lopeta muokkaus") {
-                            self.disableEditing.toggle()
-                        } .foregroundColor(.blue)
-                            .font(.headline)
-                    }
-                    
+            } .disabled(showConfirmation)
+                .blur(radius: showConfirmation ? 20 : 0)
+            ConfirmationAlertView(showConfirmation: self.$showConfirmation)
+        }
+        .navigationBarItems(trailing: Button("Tallenna") {
+            withAnimation(.spring()) {
+                self.selectedBudget.name = self.newName
+                self.selectedBudget.budgetAmount = Int32(self.newAmount) ?? 30
+                
+                self.showConfirmation.toggle()
+                
+                if self.moc.hasChanges {
+                    try? self.moc.save()
                 }
+            }
                 
-            } .foregroundColor(disableEditing ? Color.gray : Color.black)
-                
-                .navigationBarItems(trailing: Button("Tallenna") {
-                    self.selectedBudget.name = self.newName
-                    self.selectedBudget.budgetAmount = Int16(self.newAmount) ?? self.selectedBudget.budgetAmount
-                    
-                    if self.moc.hasChanges {
-                        try? self.moc.save()
-                    }
-                } .disabled(disableEditing || (newAmount.isEmpty || newName.isEmpty))
-            )
-                
-        .navigationBarTitle(Text(selectedBudget.wrappedName), displayMode: .inline)
-        .navigationViewStyle(StackNavigationViewStyle())
+            
+            
+        } .disabled(newAmount == String(selectedBudget.budgetAmount) && newName == selectedBudget.wrappedName || (newAmount.isEmpty || newName.isEmpty)))
+            
+            .navigationBarTitle(Text(selectedBudget.wrappedName), displayMode: .inline)
+            .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct AddBudgetView: View {
     @Environment(\.managedObjectContext) var moc
@@ -42,8 +43,14 @@ struct AddBudgetView: View {
             Form {
                 Section(header: Text("Perustiedot")) {
                     TextField("Nimi", text: $budgetName)
-                    TextField("Budjetin määrä", text: $budgetAmount)
+                    TextField("Aloitusmäärä", text: $budgetAmount)
                         .keyboardType(.decimalPad)
+                        .onReceive(Just(budgetAmount)) { newValue in
+                            let filtered = newValue.filter { "0123456789".contains($0) }
+                            if filtered != newValue {
+                                self.budgetAmount = filtered
+                            }
+                    }
                 }
                 Section(header: Text("Kesto"), footer: Text("Valitse kuinka usein budjetti alkaa alusta")) {
                     Picker(selection: $budgetDuration, label: Text("kesto")) {
@@ -54,11 +61,16 @@ struct AddBudgetView: View {
                     } .pickerStyle(SegmentedPickerStyle())
                 }
             }
-            .navigationBarItems(trailing: Button("Tallenna") {
+            .navigationBarItems(leading: Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "x.circle")
+            },
+                trailing: Button("Tallenna") {
                 
                 let newBudget = Budget(context: self.moc)
                 newBudget.name = self.budgetName
-                newBudget.budgetAmount = Int16(self.budgetAmount) ?? 0
+                newBudget.budgetAmount = Int32(self.budgetAmount) ?? 0
                 newBudget.duration = self.durationAmount
                 newBudget.startDate = self.startDate
                 newBudget.id = UUID()
@@ -71,7 +83,7 @@ struct AddBudgetView: View {
             }
                 .disabled(budgetName.isEmpty || budgetAmount.isEmpty)
             )
-            .navigationBarTitle("Uusi")
+            .navigationBarTitle("Uusi budjetti")
         }
         .navigationViewStyle(StackNavigationViewStyle())
         

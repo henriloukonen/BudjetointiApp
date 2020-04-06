@@ -13,9 +13,10 @@ struct BudgetExpensesView: View {
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     @State private var showAddExpense = false
-    @State private var showingEditExpense = false
+    @State private var showAddIncome = false
+    @State private var showBudgets = false
     
-    @ObservedObject var expenses: Budget
+    @ObservedObject var budget: Budget
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -27,27 +28,24 @@ struct BudgetExpensesView: View {
     
     
     var body: some View {
-        
         VStack {
             List {
-                if horizontalSizeClass == .regular {
-                    VStack {
-                        Text("lol")
-                    }
-                }
-                if expenses.expenseArray.isEmpty {
-                    Text("Tässä budjetissa ei ole menoja")
+                if budget.expenseArray.isEmpty {
+                    Text("Tässä budjetissa ei ole menoja tai tuloja")
                         .foregroundColor(.gray)
                         .font(.headline)
+                        .transition(.slide)
                 }
                 else {
-                    ForEach(expenses.expenseArray, id: \.self) { expense in
+                    ForEach(budget.expenseArray, id: \.self) { expense in
                         NavigationLink(destination: EditExpenseView(expense: expense).environment(\.managedObjectContext, self.moc)) {
                             HStack {
+                                Image(systemName: expense.isExpense ? "chevron.up" : "chevron.down")
+                                    .foregroundColor(expense.isExpense ? .red : .green)
+                                    .padding(.horizontal, 5)
                                 VStack(alignment: .leading) {
                                     Text("\(expense.amount) €")
                                         .font(.headline)
-                                    
                                     Text(expense.wrappedExpenseNote)
                                         .font(.caption)
                                         .foregroundColor(.gray)
@@ -61,32 +59,70 @@ struct BudgetExpensesView: View {
                             }
                         }
                     }
-                    .onDelete { index in
-                        let deleteExpense = self.expenses.expenseArray[index.first!]
-                        self.moc.delete(deleteExpense)
                         
-                        try? self.moc.save()
-                    }
+                    .onDelete { index in
+                        withAnimation(.spring()) {
+                            let deleteExpense = self.budget.expenseArray[index.first!]
+                            self.moc.delete(deleteExpense)
+                            
+                            try? self.moc.save()
+                        }
+                    } .transition(
+                        AnyTransition.move(edge: .trailing).combined(with: .opacity)
+                    )
                 }
             } .listStyle(GroupedListStyle())
-                
             
-            VStack {
-                Button("Uusi meno") {
-                    self.showAddExpense.toggle()
+            
+            HStack {
+                HStack {
+                    VStack {
+                        Button(action: {
+                            self.showAddExpense.toggle()
+                        }) {
+                            Image(systemName: "pencil")
+                                .resizable()
+                                .frame(width:30, height: 30)
+                        }
+                        .sheet(isPresented: self.$showAddExpense) {
+                            AddExpenseView(budget: self.budget).environment(\.managedObjectContext, self.moc)
+                        }
+                        .frame(width: 150, height: 30)
+                        .padding(.all)
+                        .background(Color.green)
+                        .clipShape(Circle())
+                        .foregroundColor(.white)
+                        .font(Font.body.bold())
+                        
+                        Text("Lisää")
+                            .font(.footnote)
+                    } .padding(.horizontal, 4)
+                    VStack {
+                        Button(action: {
+                            //
+                        }) {
+                            NavigationLink(destination: MoreExpenseDetailsView(budgetDetails: budget)) {
+                                Image(systemName: "chevron.right.2")
+                                    .resizable()
+                                    .frame(width:30, height: 30)
+                            }
+                        }
+                        .frame(width: 150, height: 30)
+                        .padding(.all)
+                        .background(Color.purple)
+                        .clipShape(Circle())
+                        .foregroundColor(.white)
+                        .font(Font.body.bold())
+                        
+                        Text("Yksityiskohdat")
+                            .font(.footnote)
+                        
+                    }
                 }
-                    .frame(minWidth: 0, maxWidth: 130, minHeight: 0, maxHeight: 50)
-                    .background(Color.green)
-                    .cornerRadius(11)
-                    .foregroundColor(.white)
-                    .font(Font.body.bold())
             }
         }
-        .sheet(isPresented: $showAddExpense) {
-            AddExpenseView().environment(\.managedObjectContext, self.moc)
-        }
             
-        .navigationBarTitle(Text(expenses.wrappedName), displayMode: .inline)
+        .navigationBarTitle(Text(budget.wrappedName), displayMode: .inline)
     }
 }
 
