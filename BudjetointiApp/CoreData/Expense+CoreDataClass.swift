@@ -2,7 +2,7 @@
 //  Expense+CoreDataClass.swift
 //  BudjetointiApp
 //
-//  Created by Henri Loukonen on 4.4.2020.
+//  Created by Henri Loukonen on 6.4.2020.
 //  Copyright © 2020 Henri Loukonen. All rights reserved.
 //
 //

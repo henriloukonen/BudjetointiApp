@@ -21,14 +21,13 @@ struct BottomMenuView: View {
                     HStack {
                         Button(action: {
                             self.showTransfer.toggle()
-                        }, label: {
+                            withAnimation(.spring()) {
+                               self.showMenu = false
+                            }
+                        }) {
                             Image(systemName: "arrow.right.arrow.left")
-                                .padding(.all)
-                                .background(Color.purple)
-                                .clipShape(Circle())
-                                .foregroundColor(.white)
-                                .font(Font.body.bold())
-                        }) 
+                                .modifier(RoundButton(color: .purple, size: (20, 20)))
+                        }
                         
                         Text("Siirrä")
                             .font(.footnote)
@@ -36,18 +35,20 @@ struct BottomMenuView: View {
                     HStack {
                         Button(action: {
                             self.showBudgets.toggle()
-                        }, label:  {
+                            withAnimation(.spring()) {
+                               self.showMenu = false
+                            }
+                            
+                            
+                        }) {
                             Image(systemName: "centsign.circle")
-                                .padding(.all)
-                                .background(Color.blue)
-                                .clipShape(Circle())
-                                .foregroundColor(.white)
-                                .font(Font.body.bold())
-                        })
+                                .modifier(RoundButton(color: .blue, size: (20, 20)))
+                        }
                         
                         Text("Budjetit")
                             .font(.footnote)
                     }
+                    .padding(.bottom, 6)
                 }
                 .transition(
                     AnyTransition.move(edge: .bottom).combined(with: .opacity)

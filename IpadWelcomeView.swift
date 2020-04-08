@@ -14,6 +14,12 @@ struct IpadWelcomeView: View {
         VStack {
             Text("Valitse budjetti vasemmasta reunasta")
                 .foregroundColor(.secondary)
+            Image(systemName: "centsign.circle")
+                .resizable()
+                .frame(width: 100, height: 100)
+                
+                .padding(.top, 10)
+            .opacity(0.3)
         }
     }
 }

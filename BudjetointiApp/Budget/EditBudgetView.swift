@@ -9,23 +9,18 @@
 import SwiftUI
 import Combine
 
+
 struct EditBudgetView: View {
     @Environment(\.managedObjectContext) var moc
     @Environment(\.presentationMode) var presentationMode
     
-    @State private var newName: String
-    @State private var newAmount: String
-    @State private var creationDate: Date
+    //    @State private var newName: String
+    //    @State private var newAmount: String
+    //    @State private var creationDate: Date
     @State private var showConfirmation = false
     
-    @ObservedObject var selectedBudget: Budget
+    @ObservedObject var editBudget: EditBudgetModel
     
-    init(selectedBudget: Budget) {
-        self.selectedBudget = selectedBudget
-        self._newName = State(initialValue: selectedBudget.wrappedName) //_newName - this means you're initialising the wrapper and not the wrapped value.
-        self._newAmount = State(initialValue: String(selectedBudget.budgetAmount))
-        self._creationDate = State(initialValue: selectedBudget.wrappedStartDate)
-    }
     
     var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -38,7 +33,7 @@ struct EditBudgetView: View {
     var durationText: String {
         var duration = ""
         
-        switch selectedBudget.duration {
+        switch editBudget.budget.duration {
         case 7:
             duration = "Viikottain"
         case 30:
@@ -57,41 +52,56 @@ struct EditBudgetView: View {
             List {
                 Section {
                     HStack {
-                        Text("Nimi")
-                            .bold()
+                        HStack {
+                            Text("Nimi")
+                                .bold()
+                        }.frame(minWidth: 100)
+                        Divider()
                         
-                        TextField(newName, text: $newName)
+                        TextField("Nimi", text: $editBudget.newName)
                     }
                     HStack {
-                        Text("Summa")
-                            .bold()
-                        TextField(String(newAmount), text: $newAmount)
+                        HStack {
+                            Text("Summa")
+                                .bold()
+                        }.frame(minWidth: 100)
+                        Divider()
+                        TextField("Summa", text: $editBudget.newAmount)
                             .keyboardType(.decimalPad)
-                            .onReceive(Just(newAmount)) { newValue in
-                                let filtered = newValue.filter { "0123456789".contains($0) }
-                                if filtered != newValue {
-                                    self.newAmount = filtered
-                                }
-                        }
+                        
                     }
                     HStack {
-                        Text("Jäljellä")
-                            .bold()
-                        Text("\(Calculate().remainingBalance(in: selectedBudget))")
+                        HStack {
+                            Text("Jäljellä")
+                                .bold()
+                        }.frame(minWidth: 100)
+                        Divider()
+                        Text("\(Calculate().remainingBalance(in: editBudget.budget))")
                         
-                    }.foregroundColor(.gray)
-                        .disabled(true)
-                    HStack {
-                        Text("Kesto")
-                            .bold()
-                        Text(durationText)
-                    }.foregroundColor(.gray)
+                    }
+                    .foregroundColor(.gray)
                     .disabled(true)
                     HStack {
-                        Text("Luontipäivä")
-                            .bold()
-                        Text("\(creationDate, formatter: dateFormatter)")
-                    }.foregroundColor(.gray)
+                        HStack {
+                            Text("Kesto")
+                                .bold()
+                        }.frame(minWidth: 100)
+                        Divider()
+                        
+                        Text(durationText)
+                    }
+                    .foregroundColor(.gray)
+                    .disabled(true)
+                    HStack {
+                        HStack {
+                            Text("Luontipäivä")
+                                .bold()
+                        }.frame(minWidth: 100)
+                        Divider()
+                        
+                        Text("\(editBudget.budget.wrappedStartDate, formatter: dateFormatter)")
+                    }
+                    .foregroundColor(.gray)
                     .disabled(true)
                 }
             } .disabled(showConfirmation)
@@ -100,8 +110,8 @@ struct EditBudgetView: View {
         }
         .navigationBarItems(trailing: Button("Tallenna") {
             withAnimation(.spring()) {
-                self.selectedBudget.name = self.newName
-                self.selectedBudget.budgetAmount = Int32(self.newAmount) ?? 30
+                self.editBudget.budget.name = self.editBudget.newName
+                self.editBudget.budget.budgetAmount = Int32(self.editBudget.newAmount) ?? 0
                 
                 self.showConfirmation.toggle()
                 
@@ -109,13 +119,12 @@ struct EditBudgetView: View {
                     try? self.moc.save()
                 }
             }
-                
             
             
-        } .disabled(newAmount == String(selectedBudget.budgetAmount) && newName == selectedBudget.wrappedName || (newAmount.isEmpty || newName.isEmpty)))
             
-            .navigationBarTitle(Text(selectedBudget.wrappedName), displayMode: .inline)
-            .navigationViewStyle(StackNavigationViewStyle())
+        } .disabled(editBudget.newAmount == String(editBudget.budget.budgetAmount) && editBudget.newName == editBudget.budget.wrappedName || (editBudget.newName.isEmpty || editBudget.newAmount.isEmpty)))
+            
+            .navigationBarTitle(Text(editBudget.budget.wrappedName), displayMode: .inline)
     }
 }
 

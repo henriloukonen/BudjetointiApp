@@ -1,5 +1,5 @@
 //
-//  MoreExpenseDetailsView.swift
+//  BudgetStatsView.swift
 //  BudjetointiApp
 //
 //  Created by Henri Loukonen on 6.4.2020.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MoreExpenseDetailsView: View {
+struct BudgetStatsView: View {
     @ObservedObject var budgetDetails: Budget
     
     var durationText: String {
@@ -38,7 +38,7 @@ struct MoreExpenseDetailsView: View {
                 HStack {
                     Image(systemName: "chevron.up")
                         .foregroundColor(.red)
-                    .padding(.leading, 7)
+                        .padding(.leading, 7)
                     Text("Menot")
                         .padding(.leading, 7)
                         .font(.headline)
@@ -63,7 +63,7 @@ struct MoreExpenseDetailsView: View {
                 HStack {
                     Image(systemName: "chevron.down")
                         .foregroundColor(.green)
-                    .padding(.leading, 7)
+                        .padding(.leading, 7)
                     Text("Tulot")
                         .padding(.leading, 7)
                         .font(.headline)
@@ -108,11 +108,9 @@ struct MoreExpenseDetailsView: View {
             }
             
             
-        } .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: Alignment.topLeading)
+        }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: Alignment.topLeading)
             .padding(10)
-            
-            
-            
-            .navigationBarTitle("Yksityiskohdat")
+            .navigationBarTitle("Yhteenveto")
     }
 }

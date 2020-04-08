@@ -18,12 +18,14 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="isExpense" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isTransfer" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="note" optional="YES" attributeType="String"/>
         <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="transferID" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <relationship name="selectedBudget" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Budget" inverseName="expenses" inverseEntity="Budget"/>
     </entity>
     <elements>
         <element name="Budget" positionX="-36" positionY="36" width="128" height="133"/>
-        <element name="Expense" positionX="-36" positionY="9" width="128" height="148"/>
+        <element name="Expense" positionX="-36" positionY="9" width="128" height="178"/>
     </elements>
 </model>

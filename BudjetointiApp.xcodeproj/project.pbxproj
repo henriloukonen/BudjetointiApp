@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BB00EC60243BBE9F0033C949 /* EditModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00EC5F243BBE9F0033C949 /* EditModel.swift */; };
+		BB00EC63243CB37E0033C949 /* CustomModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB00EC62243CB37E0033C949 /* CustomModifiers.swift */; };
 		BB4F897C24000C5C00D4267B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4F897B24000C5C00D4267B /* AppDelegate.swift */; };
 		BB4F897E24000C5C00D4267B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4F897D24000C5C00D4267B /* SceneDelegate.swift */; };
 		BB4F898124000C5C00D4267B /* BudjetointiApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB4F897F24000C5C00D4267B /* BudjetointiApp.xcdatamodeld */; };
@@ -15,30 +17,25 @@
 		BB4F898824000C6400D4267B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB4F898724000C6400D4267B /* Preview Assets.xcassets */; };
 		BB4F898B24000C6400D4267B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB4F898924000C6400D4267B /* LaunchScreen.storyboard */; };
 		BB4F89952400111600D4267B /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB4F89942400111600D4267B /* AddExpenseView.swift */; };
-		BB6BD1162436429F002C54CC /* Budget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E009241D1E6C0024E6D6 /* Budget+CoreDataClass.swift */; };
-		BB6BD1172436429F002C54CC /* Budget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E01724265FE40024E6D6 /* Budget+CoreDataProperties.swift */; };
 		BB6BD11B2436435B002C54CC /* BudgetDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BD11A2436435B002C54CC /* BudgetDetailView.swift */; };
 		BB6BD11C24364641002C54CC /* BudjetointiApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB4F897F24000C5C00D4267B /* BudjetointiApp.xcdatamodeld */; };
-		BB6BD11D2436468F002C54CC /* DurationTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC6A9E24324EB9009BC844 /* DurationTimer.swift */; };
+		BB6BD11D2436468F002C54CC /* BudgetDurationTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC6A9E24324EB9009BC844 /* BudgetDurationTimer.swift */; };
 		BB6BD1252436530C002C54CC /* BottomMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB6BD1242436530B002C54CC /* BottomMenuView.swift */; };
-		BB77E00B241D1E6C0024E6D6 /* Budget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E009241D1E6C0024E6D6 /* Budget+CoreDataClass.swift */; };
 		BB77E00E241D30F40024E6D6 /* BudgetExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E00D241D30F40024E6D6 /* BudgetExpensesView.swift */; };
 		BB77E0102423DA7F0024E6D6 /* ShowBudgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E00F2423DA7F0024E6D6 /* ShowBudgetsView.swift */; };
 		BB77E014242655170024E6D6 /* AddBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E013242655170024E6D6 /* AddBudgetView.swift */; };
-		BB77E01824265FE40024E6D6 /* Budget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E01724265FE40024E6D6 /* Budget+CoreDataProperties.swift */; };
 		BB77E01A242665710024E6D6 /* EditBudgetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E019242665710024E6D6 /* EditBudgetView.swift */; };
 		BB77E01C2426657C0024E6D6 /* EditExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E01B2426657C0024E6D6 /* EditExpenseView.swift */; };
 		BB77E01E242673570024E6D6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB77E01D242673570024E6D6 /* SettingsView.swift */; };
 		BB8B01402437226E0077A295 /* ConfirmationAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B013F2437226E0077A295 /* ConfirmationAlertView.swift */; };
 		BB8B01432437440E0077A295 /* TransferBudgetBalanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B01422437440E0077A295 /* TransferBudgetBalanceView.swift */; };
 		BB8B014524389F3C0077A295 /* BudgetCalculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B014424389F3C0077A295 /* BudgetCalculations.swift */; };
-		BB8B01472438CB0E0077A295 /* MakeTransferView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B01462438CB0E0077A295 /* MakeTransferView.swift */; };
-		BB8B01532438E7030077A295 /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B01512438E7030077A295 /* Expense+CoreDataClass.swift */; };
-		BB8B01542438E7030077A295 /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B01522438E7030077A295 /* Expense+CoreDataProperties.swift */; };
-		BB8B01552438E7060077A295 /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B01512438E7030077A295 /* Expense+CoreDataClass.swift */; };
-		BB8B01562438E7060077A295 /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B01522438E7030077A295 /* Expense+CoreDataProperties.swift */; };
-		BB8B0159243A4CAC0077A295 /* BudgetRowBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B0158243A4CAC0077A295 /* BudgetRowBackground.swift */; };
-		BB8B015B243B14A00077A295 /* MoreExpenseDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B015A243B14A00077A295 /* MoreExpenseDetailsView.swift */; };
+		BB8B0159243A4CAC0077A295 /* RemainingBalanceColorIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B0158243A4CAC0077A295 /* RemainingBalanceColorIndicator.swift */; };
+		BB8B015B243B14A00077A295 /* BudgetStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B015A243B14A00077A295 /* BudgetStatsView.swift */; };
+		BB8B0167243B5F710077A295 /* Budget+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B0165243B5F710077A295 /* Budget+CoreDataClass.swift */; };
+		BB8B0168243B5F710077A295 /* Budget+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B0166243B5F710077A295 /* Budget+CoreDataProperties.swift */; };
+		BB8B016B243B5F9A0077A295 /* Expense+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B0169243B5F9A0077A295 /* Expense+CoreDataClass.swift */; };
+		BB8B016C243B5F9A0077A295 /* Expense+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB8B016A243B5F9A0077A295 /* Expense+CoreDataProperties.swift */; };
 		BBAE97042407C5A400664945 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BBAE97022407C5A400664945 /* Interface.storyboard */; };
 		BBAE97062407C5AA00664945 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBAE97052407C5AA00664945 /* Assets.xcassets */; };
 		BBAE970D2407C5AA00664945 /* WatchApp Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = BBAE970C2407C5AA00664945 /* WatchApp Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -51,7 +48,7 @@
 		BBAE971F2407C5AC00664945 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BBAE971E2407C5AC00664945 /* Preview Assets.xcassets */; };
 		BBAE97242407C5AC00664945 /* WatchApp.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = BBAE97002407C5A400664945 /* WatchApp.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		BBEC6A9D242FA847009BC844 /* IpadWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC6A9C242FA847009BC844 /* IpadWelcomeView.swift */; };
-		BBEC6A9F24324EB9009BC844 /* DurationTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC6A9E24324EB9009BC844 /* DurationTimer.swift */; };
+		BBEC6A9F24324EB9009BC844 /* BudgetDurationTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBEC6A9E24324EB9009BC844 /* BudgetDurationTimer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +94,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BB00EC5F243BBE9F0033C949 /* EditModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditModel.swift; sourceTree = "<group>"; };
+		BB00EC62243CB37E0033C949 /* CustomModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomModifiers.swift; sourceTree = "<group>"; };
 		BB4F897824000C5C00D4267B /* BudjetointiApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BudjetointiApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB4F897B24000C5C00D4267B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB4F897D24000C5C00D4267B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,22 +108,22 @@
 		BB4F89942400111600D4267B /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		BB6BD11A2436435B002C54CC /* BudgetDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDetailView.swift; sourceTree = "<group>"; };
 		BB6BD1242436530B002C54CC /* BottomMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomMenuView.swift; sourceTree = "<group>"; };
-		BB77E009241D1E6C0024E6D6 /* Budget+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Budget+CoreDataClass.swift"; path = "BudjetointiApp/CoreData/Budget+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		BB77E00D241D30F40024E6D6 /* BudgetExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetExpensesView.swift; sourceTree = "<group>"; };
 		BB77E00F2423DA7F0024E6D6 /* ShowBudgetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowBudgetsView.swift; sourceTree = "<group>"; };
 		BB77E013242655170024E6D6 /* AddBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBudgetView.swift; sourceTree = "<group>"; };
-		BB77E01724265FE40024E6D6 /* Budget+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Budget+CoreDataProperties.swift"; path = "BudjetointiApp/CoreData/Budget+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		BB77E019242665710024E6D6 /* EditBudgetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditBudgetView.swift; sourceTree = "<group>"; };
 		BB77E01B2426657C0024E6D6 /* EditExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseView.swift; sourceTree = "<group>"; };
 		BB77E01D242673570024E6D6 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		BB8B013F2437226E0077A295 /* ConfirmationAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationAlertView.swift; sourceTree = "<group>"; };
 		BB8B01422437440E0077A295 /* TransferBudgetBalanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferBudgetBalanceView.swift; sourceTree = "<group>"; };
 		BB8B014424389F3C0077A295 /* BudgetCalculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetCalculations.swift; sourceTree = "<group>"; };
-		BB8B01462438CB0E0077A295 /* MakeTransferView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeTransferView.swift; sourceTree = "<group>"; };
-		BB8B01512438E7030077A295 /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Expense+CoreDataClass.swift"; path = "BudjetointiApp/CoreData/Expense+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		BB8B01522438E7030077A295 /* Expense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Expense+CoreDataProperties.swift"; path = "BudjetointiApp/CoreData/Expense+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		BB8B0158243A4CAC0077A295 /* BudgetRowBackground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetRowBackground.swift; sourceTree = "<group>"; };
-		BB8B015A243B14A00077A295 /* MoreExpenseDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreExpenseDetailsView.swift; sourceTree = "<group>"; };
+		BB8B0158243A4CAC0077A295 /* RemainingBalanceColorIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemainingBalanceColorIndicator.swift; sourceTree = "<group>"; };
+		BB8B015A243B14A00077A295 /* BudgetStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetStatsView.swift; sourceTree = "<group>"; };
+		BB8B015C243B2B140077A295 /* BudjetointiApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BudjetointiApp.entitlements; sourceTree = "<group>"; };
+		BB8B0165243B5F710077A295 /* Budget+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Budget+CoreDataClass.swift"; path = "BudjetointiApp/CoreData/Budget+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		BB8B0166243B5F710077A295 /* Budget+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Budget+CoreDataProperties.swift"; path = "BudjetointiApp/CoreData/Budget+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		BB8B0169243B5F9A0077A295 /* Expense+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Expense+CoreDataClass.swift"; path = "BudjetointiApp/CoreData/Expense+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		BB8B016A243B5F9A0077A295 /* Expense+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Expense+CoreDataProperties.swift"; path = "BudjetointiApp/CoreData/Expense+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		BBAE97002407C5A400664945 /* WatchApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBAE97032407C5A400664945 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		BBAE97052407C5AA00664945 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -140,7 +139,7 @@
 		BBAE97202407C5AC00664945 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BBAE97212407C5AC00664945 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		BBEC6A9C242FA847009BC844 /* IpadWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IpadWelcomeView.swift; sourceTree = SOURCE_ROOT; };
-		BBEC6A9E24324EB9009BC844 /* DurationTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationTimer.swift; sourceTree = "<group>"; };
+		BBEC6A9E24324EB9009BC844 /* BudgetDurationTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BudgetDurationTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,20 +183,22 @@
 		BB4F897A24000C5C00D4267B /* BudjetointiApp */ = {
 			isa = PBXGroup;
 			children = (
+				BB8B015C243B2B140077A295 /* BudjetointiApp.entitlements */,
 				BB8B0141243724E40077A295 /* CoreData */,
 				BB4F897D24000C5C00D4267B /* SceneDelegate.swift */,
 				BB4F897B24000C5C00D4267B /* AppDelegate.swift */,
 				BB77E01D242673570024E6D6 /* SettingsView.swift */,
 				BBEC6A9C242FA847009BC844 /* IpadWelcomeView.swift */,
-				BB8B014A2438CFC60077A295 /* Budget transfer */,
 				BBF511CD242D11040051A6C0 /* Budget */,
 				BBEC6AA0243399D5009BC844 /* Expense */,
 				BB4F898224000C5C00D4267B /* ContentView.swift */,
-				BB8B0158243A4CAC0077A295 /* BudgetRowBackground.swift */,
+				BB00EC5F243BBE9F0033C949 /* EditModel.swift */,
+				BB8B0158243A4CAC0077A295 /* RemainingBalanceColorIndicator.swift */,
 				BB6BD1242436530B002C54CC /* BottomMenuView.swift */,
-				BBEC6A9E24324EB9009BC844 /* DurationTimer.swift */,
+				BBEC6A9E24324EB9009BC844 /* BudgetDurationTimer.swift */,
 				BB8B013F2437226E0077A295 /* ConfirmationAlertView.swift */,
 				BB8B014424389F3C0077A295 /* BudgetCalculations.swift */,
+				BB00EC62243CB37E0033C949 /* CustomModifiers.swift */,
 				BB4F898424000C6400D4267B /* Assets.xcassets */,
 				BB4F898924000C6400D4267B /* LaunchScreen.storyboard */,
 				BB4F898C24000C6400D4267B /* Info.plist */,
@@ -218,21 +219,12 @@
 		BB8B0141243724E40077A295 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				BB8B01512438E7030077A295 /* Expense+CoreDataClass.swift */,
-				BB8B01522438E7030077A295 /* Expense+CoreDataProperties.swift */,
-				BB77E009241D1E6C0024E6D6 /* Budget+CoreDataClass.swift */,
-				BB77E01724265FE40024E6D6 /* Budget+CoreDataProperties.swift */,
+				BB8B0169243B5F9A0077A295 /* Expense+CoreDataClass.swift */,
+				BB8B016A243B5F9A0077A295 /* Expense+CoreDataProperties.swift */,
+				BB8B0165243B5F710077A295 /* Budget+CoreDataClass.swift */,
+				BB8B0166243B5F710077A295 /* Budget+CoreDataProperties.swift */,
 			);
 			path = CoreData;
-			sourceTree = "<group>";
-		};
-		BB8B014A2438CFC60077A295 /* Budget transfer */ = {
-			isa = PBXGroup;
-			children = (
-				BB8B01422437440E0077A295 /* TransferBudgetBalanceView.swift */,
-				BB8B01462438CB0E0077A295 /* MakeTransferView.swift */,
-			);
-			path = "Budget transfer";
 			sourceTree = "<group>";
 		};
 		BBAE97012407C5A400664945 /* WatchApp */ = {
@@ -283,10 +275,11 @@
 			isa = PBXGroup;
 			children = (
 				BB77E00D241D30F40024E6D6 /* BudgetExpensesView.swift */,
-				BB8B015A243B14A00077A295 /* MoreExpenseDetailsView.swift */,
+				BB8B015A243B14A00077A295 /* BudgetStatsView.swift */,
 				BB77E00F2423DA7F0024E6D6 /* ShowBudgetsView.swift */,
 				BB77E019242665710024E6D6 /* EditBudgetView.swift */,
 				BB77E013242655170024E6D6 /* AddBudgetView.swift */,
+				BB8B01422437440E0077A295 /* TransferBudgetBalanceView.swift */,
 			);
 			path = Budget;
 			sourceTree = "<group>";
@@ -424,28 +417,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB8B0168243B5F710077A295 /* Budget+CoreDataProperties.swift in Sources */,
+				BB00EC63243CB37E0033C949 /* CustomModifiers.swift in Sources */,
 				BB77E01E242673570024E6D6 /* SettingsView.swift in Sources */,
-				BB77E01824265FE40024E6D6 /* Budget+CoreDataProperties.swift in Sources */,
-				BB8B01532438E7030077A295 /* Expense+CoreDataClass.swift in Sources */,
-				BB77E00B241D1E6C0024E6D6 /* Budget+CoreDataClass.swift in Sources */,
 				BB4F897C24000C5C00D4267B /* AppDelegate.swift in Sources */,
 				BBEC6A9D242FA847009BC844 /* IpadWelcomeView.swift in Sources */,
 				BB77E0102423DA7F0024E6D6 /* ShowBudgetsView.swift in Sources */,
 				BB4F897E24000C5C00D4267B /* SceneDelegate.swift in Sources */,
+				BB8B016B243B5F9A0077A295 /* Expense+CoreDataClass.swift in Sources */,
 				BB6BD1252436530C002C54CC /* BottomMenuView.swift in Sources */,
 				BB8B01402437226E0077A295 /* ConfirmationAlertView.swift in Sources */,
+				BB00EC60243BBE9F0033C949 /* EditModel.swift in Sources */,
+				BB8B0167243B5F710077A295 /* Budget+CoreDataClass.swift in Sources */,
 				BB8B01432437440E0077A295 /* TransferBudgetBalanceView.swift in Sources */,
-				BB8B015B243B14A00077A295 /* MoreExpenseDetailsView.swift in Sources */,
-				BB8B0159243A4CAC0077A295 /* BudgetRowBackground.swift in Sources */,
-				BB8B01542438E7030077A295 /* Expense+CoreDataProperties.swift in Sources */,
+				BB8B015B243B14A00077A295 /* BudgetStatsView.swift in Sources */,
+				BB8B0159243A4CAC0077A295 /* RemainingBalanceColorIndicator.swift in Sources */,
 				BB77E01A242665710024E6D6 /* EditBudgetView.swift in Sources */,
 				BB8B014524389F3C0077A295 /* BudgetCalculations.swift in Sources */,
 				BB4F89952400111600D4267B /* AddExpenseView.swift in Sources */,
 				BB4F898324000C5C00D4267B /* ContentView.swift in Sources */,
 				BB77E00E241D30F40024E6D6 /* BudgetExpensesView.swift in Sources */,
 				BB77E01C2426657C0024E6D6 /* EditExpenseView.swift in Sources */,
-				BB8B01472438CB0E0077A295 /* MakeTransferView.swift in Sources */,
-				BBEC6A9F24324EB9009BC844 /* DurationTimer.swift in Sources */,
+				BB8B016C243B5F9A0077A295 /* Expense+CoreDataProperties.swift in Sources */,
+				BBEC6A9F24324EB9009BC844 /* BudgetDurationTimer.swift in Sources */,
 				BB77E014242655170024E6D6 /* AddBudgetView.swift in Sources */,
 				BB4F898124000C5C00D4267B /* BudjetointiApp.xcdatamodeld in Sources */,
 			);
@@ -457,14 +451,10 @@
 			files = (
 				BBAE97142407C5AA00664945 /* HostingController.swift in Sources */,
 				BBAE97122407C5AA00664945 /* ContentView.swift in Sources */,
-				BB8B01552438E7060077A295 /* Expense+CoreDataClass.swift in Sources */,
 				BBAE97182407C5AA00664945 /* NotificationController.swift in Sources */,
-				BB6BD1172436429F002C54CC /* Budget+CoreDataProperties.swift in Sources */,
 				BB6BD11C24364641002C54CC /* BudjetointiApp.xcdatamodeld in Sources */,
 				BBAE97162407C5AA00664945 /* ExtensionDelegate.swift in Sources */,
-				BB6BD1162436429F002C54CC /* Budget+CoreDataClass.swift in Sources */,
-				BB8B01562438E7060077A295 /* Expense+CoreDataProperties.swift in Sources */,
-				BB6BD11D2436468F002C54CC /* DurationTimer.swift in Sources */,
+				BB6BD11D2436468F002C54CC /* BudgetDurationTimer.swift in Sources */,
 				BB6BD11B2436435B002C54CC /* BudgetDetailView.swift in Sources */,
 				BBAE971A2407C5AA00664945 /* NotificationView.swift in Sources */,
 			);
@@ -623,6 +613,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BudjetointiApp/BudjetointiApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BudjetointiApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9N39D7WC7C;
@@ -643,6 +634,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BudjetointiApp/BudjetointiApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"BudjetointiApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 9N39D7WC7C;

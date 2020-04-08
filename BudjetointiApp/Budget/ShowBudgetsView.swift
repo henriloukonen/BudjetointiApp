@@ -37,7 +37,7 @@ struct ShowBudgetsView: View {
                         else {
                             Section {
                                 ForEach(budgets, id: \.self) { budget in
-                                    NavigationLink(destination: EditBudgetView(selectedBudget: budget).environment(\.managedObjectContext, self.moc)) {
+                                    NavigationLink(destination: EditBudgetView(editBudget: EditBudgetModel(budget: budget)).environment(\.managedObjectContext, self.moc)) {
                                         HStack {
                                             Text(budget.wrappedName)
                                                 .font(.headline)
@@ -85,12 +85,7 @@ struct ShowBudgetsView: View {
                     .sheet(isPresented: self.$showingAddBudget) {
                         AddBudgetView().environment(\.managedObjectContext, self.moc)
                     }
-                    .frame(width: 150, height: 30)
-                    .padding(.all)
-                    .background(Color.blue)
-                    .clipShape(Circle())
-                    .foregroundColor(.white)
-                    .font(Font.body.bold())
+                    .modifier(RoundButton(color: .blue, size: (25, 25)))
                     
                     Text("Uusi Budjetti")
                         .font(.footnote)

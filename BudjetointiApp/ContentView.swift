@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import LocalAuthentication
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
@@ -17,11 +18,13 @@ struct ContentView: View {
     
     var budgets: FetchedResults<Budget>
     
-    @State private var showingSettings = false
+    
+    @State private var showSettings = false
     @State private var showBudgets = false
-    @State private var showAddExpense = false
+//    @State private var showAddExpense = false
     @State private var showMenu = false
     @State private var showTransfer = false
+//    @State private var isUnlocked = false
     
     init() {
         UITableView.appearance().separatorStyle = .none //remove separators
@@ -30,12 +33,14 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
+                //if self.isUnlocked {
                 VStack {
                     Spacer()
                     if budgets.isEmpty {
                         VStack {
                             Text("Tyhjää on")
                                 .padding(10)
+                                .padding(.horizontal, 4)
                                 .font(.largeTitle)
                                 .padding()
                             Text("Lisää uusi budjetti alla olevasta valikosta")
@@ -49,45 +54,55 @@ struct ContentView: View {
                                     HStack(alignment: .center) {
                                         VStack(alignment: .leading) {
                                             VStack(alignment: .leading) {
-                                                DurationTimer(duration: budget.duration, startDate: budget.wrappedStartDate)
+                                                TimerView(duration: budget.duration, startDate: budget.wrappedStartDate)
                                                     .font(.footnote)
-                                            }
-                                            .padding()
+                                                }
+                                                .padding(.trailing, 4)
+                                        } .frame(minWidth: 40, maxWidth: 80)
+                                        
+                                        VStack(alignment: .leading) {
+                                            Text(budget.wrappedName)
+                                                .font(.largeTitle)
                                         }
                                         
-                                        BudgetRowBackground(budget: budget)
-                                                .mask(Text(budget.wrappedName).font(.largeTitle))
                                         Spacer()
                                     }
-                                    
-                                    Text("\(Calculate().remainingBalance(in: budget)) €")
-                                        .bold()
-                                } 
+                                    HStack {
+                                        Text("\(Calculate().remainingBalance(in: budget)) €")
+                                            .bold()
+                                            .background(balanceColor(budget: budget))
+                                        } .frame(minWidth: 50)
+                                }
                                 .frame(height: 40)
-                                .padding()
+                                .padding(2)
                             }
                             .environment(\.defaultMinListRowHeight, 40)
                             .blur(radius: self.showMenu ? 10 : 0)
                         }
                         .disabled(showMenu)
-                        
                     }
                     
                     Spacer()
                     BottomMenuView(showMenu: $showMenu, showBudgets: $showBudgets, showTransfer: $showTransfer)
                 }
+            } .onDisappear {
+                self.showMenu = false
             }
-                
-            .sheet(isPresented: $showBudgets) {
-                ShowBudgetsView().environment(\.managedObjectContext, self.moc)
-                
+                //.onAppear(perform: authenticate)
+                .sheet(isPresented: $showBudgets) {
+                    ShowBudgetsView().environment(\.managedObjectContext, self.moc)
+                    
             }
             .navigationBarItems(leading:
                 Button(action: {
-                    self.showingSettings.toggle()
+                    withAnimation(.spring()) {
+                        self.showSettings.toggle()
+                        self.showMenu = false
+                    }
+                    
                 }) {
                     Image(systemName: "slider.horizontal.3")
-                        .sheet(isPresented: $showingSettings) {
+                        .sheet(isPresented: $showSettings) {
                             SettingsView()
                     }
                 }
@@ -97,7 +112,7 @@ struct ContentView: View {
                             TransferBudgetBalanceView().environment(\.managedObjectContext, self.moc)
                 })
             )
-                .navigationBarTitle("Yleisnäkymä")
+                .navigationBarTitle(showMenu ? "" : "Yleisnäkymä")
                 .padding(0)
             
             if horizontalSizeClass == .regular {
@@ -105,6 +120,29 @@ struct ContentView: View {
             }
         }
     }
+    //    func authenticate() {
+    //        let context = LAContext()
+    //        var error: NSError?
+    //
+    //        // check whether biometric authentication is possible
+    //        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+    //            // it's possible, so go ahead and use it
+    //            let reason = "Tätä tarvitaan budjettien näyttämiseen."
+    //
+    //            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+    //                // authentication has now completed
+    //                DispatchQueue.main.async {
+    //                    if success {
+    //                        self.isUnlocked = true
+    //                    } else {
+    //                        print("ei onnistunut")
+    //                    }
+    //                }
+    //            }
+    //        } else {
+    //            // no biometrics
+    //        }
+    //    }
 }
 //struct ContentView_Previews: PreviewProvider {
 //    static var previews: some View {

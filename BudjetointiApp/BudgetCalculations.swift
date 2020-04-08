@@ -27,6 +27,7 @@ class Calculate {
     func totalSpent(in budget: Budget) -> Int {
         var spent = 0
         
+        
         for expense in budget.expenseArray {
             if expense.isExpense {
                 spent += Int(expense.amount)

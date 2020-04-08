@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ConfirmationAlertView: View {
     
-    @State var timeRemaining = 2
+    @State var timeRemaining = 1
     @Binding var showConfirmation: Bool
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -24,7 +24,7 @@ struct ConfirmationAlertView: View {
             
         }
         .transition(
-            AnyTransition.move(edge: .bottom).combined(with: .opacity)
+            AnyTransition.scale
         )
         .foregroundColor(.blue)
         .scaleEffect(showConfirmation ? 1.4 : 0)
@@ -37,7 +37,7 @@ struct ConfirmationAlertView: View {
                 withAnimation(.spring()) {
                     self.timer.upstream.connect().cancel()
                     self.showConfirmation = false
-                    self.timeRemaining = 4
+                    self.timeRemaining = 1
                 }
             }
         }

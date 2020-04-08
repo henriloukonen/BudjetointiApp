@@ -9,35 +9,54 @@
 import SwiftUI
 
 
-struct DurationTimer: View {
+struct TimerView: View {
     var duration: Int16
     var startDate: Date
 
-    @State var currentDate = Date()
-    @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-
-
+    @State private var currentDate = Date()
+    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
     var body: some View {
-        Text("\(calculateTimeDifference(using: startDate, and: duration))")
-            .onReceive(timer) { _ in
-                self.currentDate = Date()
+        Text(displayTime())
+            .onReceive(timer) { input in
+                self.currentDate = input
+                if self.timeDifference().second ?? 0 < 1 {
+                    self.resetTimer()
+                }
             }
     }
 
-    func cancelTimer() {
+    func resetTimer() {
         self.timer.upstream.connect().cancel()
-
+        self.timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+       
     }
-
-
-    func calculateTimeDifference(using budgetStartDate: Date, and budgetDuration: Int16) -> String {
-        let budgetEndDate = Calendar.current.date(byAdding: .day, value: Int(budgetDuration), to: budgetStartDate)!
+    
+    func timeDifference() -> DateComponents {
         let calendar = Calendar(identifier: .gregorian)
-        let timeValue = calendar.dateComponents([.day, .second], from: currentDate, to: budgetEndDate)
-
-   
-        return String(format: "%2d", timeValue.day!)
+        let budgetEndDate = Calendar.current.date(byAdding: .day, value: Int(duration), to: startDate)!
+        let timeDifference = calendar.dateComponents([.day, .hour, .minute, .second], from: currentDate, to: budgetEndDate)
+        
+        return timeDifference
     }
+    func displayTime() -> String {
+        let day = timeDifference().day ?? 0
+        let hour = timeDifference().hour ?? 0
+        let minute = timeDifference().minute ?? 0
+        let second = timeDifference().second ?? 0
+        
+        var format = String(format: "%d pv, %d h", day, hour)
+
+        if day < 1 {
+            format =  String(format: "%d h", hour)
+        }
+        if hour < 1 {
+            format =  String(format: "%d m", minute)
+        }
+        return format
+    }
+   
+
 }
 
 //struct DurationTimer: View {

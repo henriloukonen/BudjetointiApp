@@ -16,7 +16,7 @@ struct AddExpenseView: View {
     @ObservedObject var budget: Budget
 
     @State private var expenseNote = ""
-    @State private var amount = "0"
+    @State private var amount = ""
     @State private var date = Date()
     @State private var isExpense = true
     
@@ -27,6 +27,7 @@ struct AddExpenseView: View {
                     TextField("Muistiinpano", text: $expenseNote)
                     TextField("Summa", text: $amount)
                         .keyboardType(.decimalPad)
+//                        .modifier(CheckForNumbers(textField: amount))
                         .onReceive(Just(amount)) { newValue in
                             let filtered = newValue.filter { "0123456789".contains($0) }
                             if filtered != newValue {
@@ -62,6 +63,7 @@ struct AddExpenseView: View {
                         newExpense.amount = Int32(self.amount) ?? 0
                         newExpense.id = UUID()
                         newExpense.isExpense = self.isExpense
+                        newExpense.isTransfer = false
                
                         if self.moc.hasChanges {
                             try? self.moc.save()
